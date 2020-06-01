@@ -1,0 +1,136 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="codemirror-5.54.0/lib/codemirror.css">
+    <style>
+        .CodeMirror {
+            border: 1px solid black;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/style.css" type="text/css"> 
+    <script src="../js/login.js"></script>
+    <title>CodeMent - Aluno</title>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                  <div class="col-md-5">
+                    <h2>
+                      <a href="aluno_ver_reservas.html" style="color: white; text-decoration: none">CodeMent</a>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+                <div class="col-lg-9 col-md-9">
+                    <div class="header__nav">
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li class="active"><a href="aluno_ver_reservas.html">Home</a></li>
+                                <li><a href="">Código</a>
+                                  <ul class="dropdown">
+                                    <li><a href="test.html">Ver Código</a></li>
+                                    <li><a href="">Ler Comentário</a></li>
+                                  </ul>
+                                </li>
+                                <li><a href="">Avaliações</a></li>
+                                <li><a href="aluno_notificacoes.html">Notificações</a></li>
+                                <li><a href="index.html">Sair</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+          </div>
+      </header> 
+
+      <section class="hero set-bg" style="background-image: url('../images/uni.jpg');">  
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="hero__text">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <p style="color: gray">Current mode: <span id="modeinfo">text/plain</span></p>
+                            <form><textarea id="code" name="code">
+                                This is the editor.
+                                // It starts out in plain text mode,
+                                #  use the control below to load and apply a mode
+                                "you'll see the highlighting of" this text /*change*/.
+                            </textarea></form>
+                            <p>Filename, mime, or mode name: <input type=text value=foo.js id=mode> <button type=button
+                                    onclick="change()">change mode</button></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>  
+        </div>
+       </section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+<script src="codemirror-5.54.0/lib/codemirror.js"></script>
+<script src="codemirror-5.54.0/mode/javascript/javascript.js"></script>
+<script src="codemirror-5.54.0/addon/mode/loadmode.js"></script>
+<script src="codemirror-5.54.0/mode/meta.js"></script>
+<script>
+    CodeMirror.modeURL = "../mode/%N/%N.js";
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+        lineNumbers: true
+    });
+    var modeInput = document.getElementById("mode");
+    CodeMirror.on(modeInput, "keypress", function (e) {
+        if (e.keyCode == 13) change();
+    });
+    function change() {
+        var val = modeInput.value, m, mode, spec;
+        if (m = /.+\.([^.]+)$/.exec(val)) {
+            var info = CodeMirror.findModeByExtension(m[1]);
+            if (info) {
+                mode = info.mode;
+                spec = info.mime;
+            }
+        } else if (/\//.test(val)) {
+            var info = CodeMirror.findModeByMIME(val);
+            if (info) {
+                mode = info.mode;
+                spec = val;
+            }
+        } else {
+            mode = spec = val;
+        }
+        if (mode) {
+            editor.setOption("mode", spec);
+            CodeMirror.autoLoadMode(editor, mode);
+            document.getElementById("modeinfo").textContent = spec;
+        } else {
+            alert("Could not find a mode corresponding to " + val);
+        }
+    }
+</script>
+
+</body>
+
+</html>
