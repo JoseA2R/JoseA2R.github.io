@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <link rel="stylesheet" href="codemirror-5.54.0/lib/codemirror.css">
+    <link rel="stylesheet" href="../codemirror-5.54.0/lib/codemirror.css">
     <style>
         .CodeMirror {
             border: 1px solid black;
@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../css/style.css" type="text/css"> 
     <script src="../js/login.js"></script>
-    <title>CodeMent - Aluno</title>
+    <title>CodeMent - Professor</title>
 </head>
 
 <body>
@@ -27,7 +27,7 @@
                 <div class="header__logo">
                   <div class="col-md-5">
                     <h2>
-                      <a href="aluno_ver_reservas.html" style="color: white; text-decoration: none">CodeMent</a>
+                      <a href="aluno_notif.html" style="color: white; text-decoration: none">CodeMent</a>
                     </h2>
                   </div>
                 </div>
@@ -36,15 +36,15 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active"><a href="aluno_ver_reservas.html">Home</a></li>
-                                <li><a href="">Código</a>
+                                <li><a href="aluno_notif.html">Home</a></li>
+                                <li class="active"><a href="">Código</a>
                                   <ul class="dropdown">
-                                    <li><a href="test.html">Ver Código</a></li>
-                                    <li><a href="">Ler Comentário</a></li>
+                                    <li><a href="ver_codigo_prof.html">Ver Código</a></li>
+                                    <li><a href="">Deixar comentário</a></li>
+                                    <li><a href="">Video-aula</a></li>
                                   </ul>
                                 </li>
                                 <li><a href="">Avaliações</a></li>
-                                <li><a href="aluno_notificacoes.html">Notificações</a></li>
                                 <li><a href="index.html">Sair</a></li>
                             </ul>
                         </nav>
@@ -62,14 +62,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
-                            <p style="color: gray">Current mode: <span id="modeinfo">text/plain</span></p>
+                            <p style="color: white">Current mode: <span id="modeinfo">text/plain</span></p>
                             <form><textarea id="code" name="code">
                                 This is the editor.
                                 // It starts out in plain text mode,
                                 #  use the control below to load and apply a mode
                                 "you'll see the highlighting of" this text /*change*/.
                             </textarea></form>
-                            <p>Filename, mime, or mode name: <input type=text value=foo.js id=mode> <button type=button
+                            <p style="color: white">Filename, mime, or mode name: <input type=text value=foo.js id=mode> <button type=button
                                     onclick="change()">change mode</button></p>
                         </div>
                     </div>

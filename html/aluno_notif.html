@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="../css/style.css" type="text/css"> 
+  <script src="../js/login.js"></script>
+  <title>CodeMent - Aluno</title>
+</head>
+
+<body>
+    <header class="header">
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-3 col-md-3">
+              <div class="header__logo">
+                <div class="col-md-5">
+                  <h2>
+                    <a href="aluno_notif.html" style="color: white; text-decoration: none">CodeMent</a>
+                  </h2>
+                </div>
+              </div>
+            </div>
+              <div class="col-lg-9 col-md-9">
+                  <div class="header__nav">
+                      <nav class="header__menu mobile-menu">
+                          <ul>
+                              <li class="active"><a href="aluno_notif.html">Home</a></li>
+                              <li><a href="">Código</a>
+                                <ul class="dropdown">
+                                  <li><a href="ver_codigo.html">Ver Código</a></li>
+                                  <li><a href="">Ler Comentário</a></li>
+                                </ul>
+                              </li>
+                              <li><a href="">Avaliações</a></li>
+                              <li><a href="index.html">Sair</a></li>
+                          </ul>
+                      </nav>
+                  </div>
+              </div>
+          </div>
+          <div id="mobile-menu-wrap"></div>
+        </div>
+    </header> 
+
+    <section class="hero set-bg" style="background-image: url('../images/uni.jpg');">  
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="hero__text">
+            <div class="section-title" id="reservas_efetuadas">
+                <h2>Notificações</h2>
+            </div>
+          </div>
+        </div>  
+      </div>
+    </section>
+
+
+  <!--scripts-->
+
+  <script>
+    $(document).ready(function () {
+      redirectLogin();
+      setTextoTop('aluno');
+      criarTabela();
+
+      console.log(loadListaReservasInd());
+    });
+
+    function criarTabela() {
+      var num = getNum(localStorage.getItem('e_mail'));
+      
+      if (!temReservasEfetuadas(num)) {
+        var text = document.createTextNode('Não existem reservas efetuadas.');
+        document.getElementById('reservas_efetuadas').appendChild(text);
+      }
+      else {
+        //obter reservas pendentes
+        var listaReservasEfetuadas = getReservasEfetuadas(num);
+        console.log(listaReservasEfetuadas);
+
+        //criar tabela
+        var table = document.createElement('table');
+        table.setAttribute('class', 'table table-dark table-bordered text-white-50');
+        //table.setAttribute('style', '-moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px;')
+
+        var texto_cabecalho_1 = document.createTextNode('Tipo');
+        var texto_cabecalho_2 = document.createTextNode('Sala');
+        var texto_cabecalho_3 = document.createTextNode('Data');
+        var texto_cabecalho_4 = document.createTextNode('Início');
+        var texto_cabecalho_5 = document.createTextNode('Fim');
+
+        var th = document.createElement('thead');
+        th.setAttribute('style', 'text')
+        var tr = document.createElement('tr');
+
+        var td1 = document.createElement('td');
+        var td2 = document.createElement('td');
+        var td3 = document.createElement('td');
+        var td4 = document.createElement('td');
+        var td5 = document.createElement('td');
+
+        td1.appendChild(texto_cabecalho_1);
+        td2.appendChild(texto_cabecalho_2);
+        td3.appendChild(texto_cabecalho_3);
+        td4.appendChild(texto_cabecalho_4);
+        td5.appendChild(texto_cabecalho_5);
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        tr.appendChild(td5);
+
+        th.appendChild(tr);
+        table.appendChild(th);
+
+        for (var i = 0; i < listaReservasEfetuadas.length; i++) {
+          var tr = document.createElement('tr');
+
+          var td1 = document.createElement('td');
+          var td2 = document.createElement('td');
+          var td3 = document.createElement('td');
+          var td4 = document.createElement('td');
+          var td5 = document.createElement('td');
+
+          //console.log(listaReservasEfetuadas[i]);
+
+          var text1 = document.createTextNode(listaReservasEfetuadas[i].tipo);
+          var text2 = document.createTextNode(listaReservasEfetuadas[i].sala);
+          var text3 = document.createTextNode(listaReservasEfetuadas[i].data);
+          var text4 = document.createTextNode(listaReservasEfetuadas[i].hora_init);
+          var text5 = document.createTextNode(listaReservasEfetuadas[i].hora_end);
+
+          td1.appendChild(text1);
+          td2.appendChild(text2);
+          td3.appendChild(text3);
+          td4.appendChild(text4);
+          td5.appendChild(text5);
+
+          tr.appendChild(td1);
+          tr.appendChild(td2);
+          tr.appendChild(td3);
+          tr.appendChild(td4);
+          tr.appendChild(td5);
+
+          table.appendChild(tr);
+        }
+        document.getElementById('reservas_efetuadas').appendChild(table);
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>
