@@ -421,7 +421,7 @@ function isLoggedOn() {
 //redireciona para a pagina de login caso nao tenha feito ainda
 function redirectLogin() {
   if (!isLoggedOn()) {
-    window.location.replace("login.html");
+    window.location.replace("index.html");
   }
 }
 
