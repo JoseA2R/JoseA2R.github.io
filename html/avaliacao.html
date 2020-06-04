@@ -15,7 +15,7 @@
     <title>CodeMent - Professor</title>
   </head>
   
-  <body>
+  <body class="hero set-bg" style="background-image: url('../images/uni.jpg');">
       <header class="header">
         <div class="container-fluid">
             <div class="row">
@@ -36,8 +36,8 @@
                                 <li><a href="">Código</a>
                                   <ul class="dropdown">
                                     <li><a href="ver_codigo_prof.html">Ver Código</a></li>
-                                    <li><a href="">Deixar comentário</a></li>
-                                    <li><a href="">Video-aula</a></li>
+                                    <li><a href="comentario.html">Deixar comentário</a></li>
+                                    <li><a href="video_aula.html">Video-aula</a></li>
                                   </ul>
                                 </li>
                                 <li class="active"><a href="avaliacao.html">Avaliações</a></li>
@@ -51,7 +51,7 @@
           </div>
       </header> 
 
-      <section class="hero set-bg" style="background-image: url('../images/uni.jpg');">  
+      <section class="hero set-bg" style="margin-top: 50px;">  
         <div class="row">
           <div class="col-lg-12">
             <div class="hero__text">
@@ -77,10 +77,13 @@
                 </div>
 
                 <button style="color: white" type="submit" class="btn btn-dark btn-block">Reservar</button>
+                <label style="color: white" for="anexo">Select a file:</label>
+                <input type="hidden" name="MAX_FILE_SIZE" value="4194304"/>
+                <input style="color: white" id="anexo" type="file" />
               </form>
 
       </div>
-      <div class="col-md-4"></div>
+      
     </div>
   </div>
 
@@ -107,6 +110,7 @@
     var hora_reserva_end;
     var sala_reserva;
     var data_reserva;
+    var anexo;
 
     function camposPreenchidos() {
       //devolve true se todos os campos estao preenchidos
@@ -114,6 +118,10 @@
       data_reserva = $('#datePicker').val();
       hora_reserva_start = $('#timePicker_start').val();
       hora_reserva_end = $('#timePicker_end').val();
+      anexo = $('#anexo').val();
+      anexo = anexo.replace("C:\\fakepath\\", "");
+      //console.log(anexo);
+      
 
       if (sala_reserva === '' || data_reserva === '' || hora_reserva_start === '' || hora_reserva_end === '') {
         return false;
@@ -156,6 +164,7 @@
           reserva.data = data_reserva;
           reserva.hora_init = hora_reserva_start;
           reserva.hora_end = hora_reserva_end;
+          reserva.anexo = anexo;
 
           //console.log(reserva);
           listaReservas.push(reserva);

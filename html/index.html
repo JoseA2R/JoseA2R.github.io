@@ -86,47 +86,21 @@
 	<script src="../js/login.js"></script>
 	
 	<script>
-		$(document).ready(function () {
-		  $('#mytooltip').attr('data-html', 'true');
-		  $('#mytooltip').attr('title', '\"aluno\"<br>\"professor\"<br>\"tecnico\"');
-		  $('#reset_tooltip').attr('data-html', 'true');
-		  $('#reset_tooltip').attr('title', 'Clique aqui para eliminar todos os dados (reservas, notificações).');
-		  $('[data-toggle="tooltip"]').tooltip();
-	
-		  var checked_lembrar = localStorage.getItem('check_lembrar');
-		  var mail = localStorage.getItem('e_mail');
-		  //console.log(checked_lembrar);
-		  if (checked_lembrar === 'true') {
-			$('#mail').val(mail);
-			$('#check_lembrar').prop('checked', true);
-		  }
-		});
-	
-		$("#reset_tooltip").on('click', function(){
-		  localStorage.clear();
-		  window.alert('Os dados da aplicação foram eliminados!');
-		});
-	
+		 
 		$('#myForm').on('submit', function (e) {
 		  e.preventDefault();
 		  var user = $('#pwd').val();
 		  var e_mail = $('#mail').val();
-		  var is_checked_lembrar = $('#check_lembrar').is(':checked');
-		  //console.log(user);
-		  //console.log(e_mail);
-		  //console.log(is_checked_lembrar);
+		 
 		  if (e_mail != '') {
 			switch (user) {
 			  case 'aluno': $('#myForm').attr('action', 'aluno_notif.html'); break;
 			  case 'professor': $('#myForm').attr('action', 'professor_notif.html'); break;
-			  //case 'tecnico': $('#myForm').attr('action', 'tecnico_fechar_sala.html'); break;
+			  
 			  default: break;
 			}
-			//console.log($('#myForm').attr('action'));
 			localStorage.setItem('e_mail', e_mail);
-			//console.log(localStorage.getItem('e_mail'));
-			localStorage.setItem('check_lembrar', is_checked_lembrar);
-			//console.log(localStorage.getItem('check_lembrar'));
+			
 		  }
 	
 		  this.submit();

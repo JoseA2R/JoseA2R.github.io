@@ -15,7 +15,7 @@
   <title>CodeMent - Professor</title>
 </head>
 
-<body>
+<body class="hero set-bg" style="background-image: url('../images/uni.jpg');">
     <header class="header">
       <div class="container-fluid">
           <div class="row">
@@ -36,8 +36,8 @@
                               <li><a href="">Código</a>
                                 <ul class="dropdown">
                                   <li><a href="ver_codigo_prof.html">Ver Código</a></li>
-                                  <li><a href="">Deixar comentário</a></li>
-                                  <li><a href="">Video-aula</a></li>
+                                  <li><a href="comentario.html">Deixar comentário</a></li>
+                                  <li><a href="video_aula.html">Video-aula</a></li>
                                 </ul>
                               </li>
                               <li><a href="avaliacao.html">Avaliações</a></li>
@@ -51,13 +51,14 @@
         </div>
     </header> 
 
-    <section class="hero set-bg" style="background-image: url('../images/uni.jpg');">  
+    <section class="hero set-bg" style="margin-top: 50px;">  
       <div class="row">
         <div class="col-lg-12">
           <div class="hero__text">
-            <div class="section-title" id="reservas_efetuadas">
+            <div class="section-title" id="reservas_efetuadas" >
                 <h2>Notificações</h2>
             </div>
+           
           </div>
         </div>  
       </div>
@@ -97,6 +98,7 @@
         var texto_cabecalho_3 = document.createTextNode('Data');
         var texto_cabecalho_4 = document.createTextNode('Início');
         var texto_cabecalho_5 = document.createTextNode('Fim');
+        var texto_cabecalho_6 = document.createTextNode('Anexo');
 
         var th = document.createElement('thead');
         th.setAttribute('style', 'text')
@@ -107,18 +109,21 @@
         var td3 = document.createElement('td');
         var td4 = document.createElement('td');
         var td5 = document.createElement('td');
+        var td6 = document.createElement('td');
 
         td1.appendChild(texto_cabecalho_1);
         td2.appendChild(texto_cabecalho_2);
         td3.appendChild(texto_cabecalho_3);
         td4.appendChild(texto_cabecalho_4);
         td5.appendChild(texto_cabecalho_5);
+        td6.appendChild(texto_cabecalho_6);
 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
         tr.appendChild(td5);
+        tr.appendChild(td6);
 
         th.appendChild(tr);
         table.appendChild(th);
@@ -131,34 +136,45 @@
           var td3 = document.createElement('td');
           var td4 = document.createElement('td');
           var td5 = document.createElement('td');
-
-          //console.log(listaReservasEfetuadas[i]);
+          var td6 = document.createElement('td');
+          
 
           var text1 = document.createTextNode(listaReservasEfetuadas[i].tipo);
           var text2 = document.createTextNode(listaReservasEfetuadas[i].sala);
           var text3 = document.createTextNode(listaReservasEfetuadas[i].data);
           var text4 = document.createTextNode(listaReservasEfetuadas[i].hora_init);
           var text5 = document.createTextNode(listaReservasEfetuadas[i].hora_end);
+          //var text6 = document.createTextNode(listaReservasEfetuadas[i].anexo);
+          var text6 = document.createElement('a');
+          var linkText = document.createTextNode(listaReservasEfetuadas[i].anexo);
+          text6.appendChild(linkText);
+          text6.title = "Link";
+          text6.href = listaReservasEfetuadas[i].anexo;
+          console.log(listaReservasEfetuadas[i].anexo);
+          document.body.appendChild(text6);
 
           td1.appendChild(text1);
           td2.appendChild(text2);
           td3.appendChild(text3);
           td4.appendChild(text4);
           td5.appendChild(text5);
+          td6.appendChild(text6);
 
           tr.appendChild(td1);
           tr.appendChild(td2);
           tr.appendChild(td3);
           tr.appendChild(td4);
           tr.appendChild(td5);
+          tr.appendChild(td6);
 
           table.appendChild(tr);
-          
+
         }
         document.getElementById('reservas_efetuadas').appendChild(table);
+        
       }
     }
-
+    
   </script>
 
 </body>

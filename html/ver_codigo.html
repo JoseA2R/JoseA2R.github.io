@@ -18,7 +18,7 @@
     <title>CodeMent - Aluno</title>
 </head>
 
-<body>
+<body class="hero set-bg" style="background-image: url('../images/uni.jpg');">
 
     <header class="header">
         <div class="container-fluid">
@@ -43,7 +43,6 @@
                                     <li><a href="">Ler Comentário</a></li>
                                   </ul>
                                 </li>
-                                <li><a href="">Avaliações</a></li>
                                 <li><a href="index.html">Sair</a></li>
                             </ul>
                         </nav>
@@ -54,7 +53,7 @@
           </div>
       </header> 
 
-      <section class="hero set-bg" style="background-image: url('../images/uni.jpg');">  
+      <section class="hero set-bg" style="margin-top: 50px;">  
         <div class="row">
           <div class="col-lg-12">
             <div class="hero__text">
@@ -67,10 +66,14 @@ This is the editor.
 // It starts out in plain text mode,
 #  use the control below to load and apply a mode
 "you'll see the highlighting of" this text /*change*/.
-                            </textarea></form>
+</textarea></form>
                             <p style="color: white">Filename, mime, or mode name: <input type=text value=foo.js id=mode> <button type=button
                                     onclick="change()">change mode</button></p>
                         </div>
+                        <label style="color: white" for="anexo">Select a file:</label>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="4194304"/>
+                        <input style="color: white" type="file" name="pic" accept="html" id="htmlFile"/>
+                        <button type="button" onClick="window.location.reload();">Submit</button>
                     </div>
                 </div>
             </div>
@@ -128,6 +131,25 @@ This is the editor.
             alert("Could not find a mode corresponding to " + val);
         }
     }
+</script>
+
+<script>
+    function readSingleFile(evt) {
+        //Retrieve the first (and only!) File from the FileList object
+        var f = evt.target.files[0]; 
+
+        if (f) {
+            var r = new FileReader();
+            r.onload = function(e) { 
+            var contents = e.target.result;
+                $("#code").val(contents); 
+            }
+            r.readAsText(f);
+        } else { 
+            alert("Failed to load file");
+        }
+    }
+    document.getElementById('htmlFile').addEventListener('change', readSingleFile, false);
 </script>
 
 </body>

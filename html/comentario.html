@@ -23,16 +23,16 @@
     <header class="header">
         <div class="container-fluid">
             <div class="row">
-              <div class="col-lg-3 col-md-3">
+              <div class="col-lg-3 col-md-3 col-3">
                 <div class="header__logo">
-                  <div class="col-md-5">
+                  <div class="col-md-5 col-5">
                     <h2>
                       <a href="professor_notif.html" style="color: white; text-decoration: none">CodeMent</a>
                     </h2>
                   </div>
                 </div>
               </div>
-                <div class="col-lg-9 col-md-9">
+                <div class="col-lg-9 col-md-9 col-9">
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
@@ -68,12 +68,27 @@ This is the editor.
 // It starts out in plain text mode,
 #  use the control below to load and apply a mode
 "you'll see the highlighting of" this text /*change*/.
-                            </textarea></form>
+</textarea></form>
                             <p style="color: white">Filename, mime, or mode name: <input type=text value=foo.js id=mode> <button type=button
-                                onclick="change()">change mode</button></p>
+                                    onclick="change()">change mode</button></p>
                         </div>
                     </div>
+                    <div id="controls">
+                        <button id="recordButton">Record</button>
+                        <button id="pauseButton" disabled>Pause</button>
+                        <button id="stopButton" disabled>Stop</button>
+                     </div>
+                     <div style="color: white" id="formats">Format: start recording to see sample rate</div>
+                       <p style="color: white"><strong>Recordings:</strong></p>
+                       <ol style="color: white" id="recordingsList"></ol>
+                     <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+                       <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+                       <script src="../js/login.js"></script>
                 </div>
+                <label style="color: white" for="anexo">Select a file:</label>
+                <input type="hidden" name="MAX_FILE_SIZE" value="4194304"/>
+                <input style="color: white" type="file" name="pic" accept="html" id="htmlFile"/>
+                <button type="button" onClick="window.location.reload();">Submit</button>
             </div>
          </div>  
         </div>
@@ -129,6 +144,25 @@ This is the editor.
             alert("Could not find a mode corresponding to " + val);
         }
     }
+</script>
+
+<script>
+    function readSingleFile(evt) {
+        //Retrieve the first (and only!) File from the FileList object
+        var f = evt.target.files[0]; 
+
+        if (f) {
+            var r = new FileReader();
+            r.onload = function(e) { 
+            var contents = e.target.result;
+                $("#code").val(contents); 
+            }
+            r.readAsText(f);
+        } else { 
+            alert("Failed to load file");
+        }
+    }
+    document.getElementById('htmlFile').addEventListener('change', readSingleFile, false);
 </script>
 
 </body>

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="../css/style.css" type="text/css"> 
+    
     <script src="../js/login.js"></script>
     <title>CodeMent - Professor</title>
 </head>
@@ -27,7 +28,7 @@
                 <div class="header__logo">
                   <div class="col-md-5">
                     <h2>
-                      <a href="professor_notif.html" style="color: white; text-decoration: none">CodeMent</a>
+                      <a href="professor_notif.html" style="color: white; text-decoration: none" class="login100-form-title2 p-b-30">CodeMent</a>
                     </h2>
                   </div>
                 </div>
@@ -68,15 +69,22 @@ This is the editor.
 // It starts out in plain text mode,
 #  use the control below to load and apply a mode
 "you'll see the highlighting of" this text /*change*/.
-                            </textarea></form>
+</textarea></form>
                             <p style="color: white">Filename, mime, or mode name: <input type=text value=foo.js id=mode> <button type=button
-                                onclick="change()">change mode</button></p>
-                        </div>
+                               onclick="change()">change mode</button></p>
+                        </div>                       
+                        <button onclick="startRecording2()">Start</button>
+                        <button onclick="stopRecording2()">Stop</button>
+                        <label style="color: white" for="anexo">Select a file:</label>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="4194304"/>
+                        <input style="color: white" type="file" name="pic" accept="html" id="htmlFile"/>
+                        <button type="button" onClick="window.location.reload();">Submit</button>
                     </div>
                 </div>
             </div>
          </div>  
         </div>
+        
        </section>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -131,6 +139,73 @@ This is the editor.
     }
 </script>
 
+
+<script>
+
+    let recorder;
+    let finalStream2;
+
+   async function startRecording2(){
+    const audioStream2 = await window.navigator.mediaDevices.getUserMedia({
+        audio: true
+    });
+    const videoStream2 = await window.navigator.mediaDevices.getDisplayMedia();
+    
+    finalStream2 = new MediaStream([...audioStream2.getTracks(), ...videoStream2.getTracks()]);
+
+    recorder = new MediaRecorder(finalStream2);
+    recorder.addEventListener('dataavailable', (e) => {
+        console.log(e);
+
+        const link = window.document.createElement('a');
+
+        link.setAttribute('href', window.URL.createObjectURL(e.data));
+        link.setAttribute('download', `video_aula.webm`);
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+
+    recorder.start();
+    
+   }
+   async function stopRecording2(){
+    console.log('stopRecording2');
+
+    recorder.stop();
+
+    finalStream2.getTracks().forEach((track) => {
+        track.stop();
+    });
+   }
+
+</script>
+
+
+<script>
+
+    function readSingleFile(evt) {
+        //Retrieve the first (and only!) File from the FileList object
+        var f = evt.target.files[0]; 
+
+        if (f) {
+            var r = new FileReader();
+            r.onload = function(e) { 
+            var contents = e.target.result;
+                $("#code").val(contents); 
+            }
+            r.readAsText(f);
+        } else { 
+            alert("Failed to load file");
+        }
+    }
+    document.getElementById('htmlFile').addEventListener('change', readSingleFile, false);
+
+</script>
+
+
 </body>
 
 </html>
+
