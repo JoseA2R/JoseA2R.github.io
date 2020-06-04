@@ -18,7 +18,7 @@
     <title>CodeMent - Aluno</title>
 </head>
 
-<body class="hero set-bg" style="background-image: url('../images/uni.jpg');">
+<body class="hero set-bg" style="background-image: url('../images/uni.jpg'); background-attachment: fixed;">
 
     <header class="header">
         <div class="container-fluid">
@@ -40,7 +40,8 @@
                                 <li class="active"><a href="">Código</a>
                                   <ul class="dropdown">
                                     <li><a href="ver_codigo.html">Ver Código</a></li>
-                                    <li><a href="">Ler Comentário</a></li>
+                                    <li><a href="comentario_aluno.html">Ler Comentário</a></li>
+                                    <li><a href="video_aula_aluno.html">Video Aula</a></li>
                                   </ul>
                                 </li>
                                 <li><a href="index.html">Sair</a></li>
@@ -70,7 +71,7 @@ This is the editor.
                             <p style="color: white">Filename, mime, or mode name: <input type=text value=foo.js id=mode> <button type=button
                                     onclick="change()">change mode</button></p>
                         </div>
-                        <label style="color: white" for="anexo">Select a file:</label>
+                        <label style="color: white" for="anexo">Selecionar código:</label>
                         <input type="hidden" name="MAX_FILE_SIZE" value="4194304"/>
                         <input style="color: white" type="file" name="pic" accept="html" id="htmlFile"/>
                         <button type="button" onClick="window.location.reload();">Submit</button>
