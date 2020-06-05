@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script src="../javascript/scripts.js"></script>
+  <title>Free2Use - Aluno - Reserva Individual</title>
+</head>
+
+<body>
+
+  <div class="container-fluid" style="background-color: rgb(26, 26, 26)">
+    <div class="row align-items-center">
+      <div class="col-md-5">
+        <h4>
+          <a href="aluno_reserva_ind.html" style="color: rgb(199, 199, 199); text-decoration: none">Free2Use</a>
+          <small class="text-white-50">Sistema de Gestão de Salas de Estudo</small>
+        </h4>
+      </div>
+      <div class="col-md-6 text-white-50" id="nome_num_top" style="text-align: right"></div>
+      <div class="col-md-1 text-white-50" style="text-align: right">
+        <a href="login.html" class="text-white-50">Sair</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" style="margin-bottom: 1%; margin-top: 1%">
+    <div class="dropdown">
+      <button type="button" class="btn btn-dark dropdown-toggle text-white-50" data-toggle="dropdown">
+        Ações
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="aluno_ver_reservas.html">Ver reservas</a>
+        <a class="dropdown-item" href="aluno_reserva_ind.html">Realizar reserva individual</a>
+        <a class="dropdown-item" href="aluno_reserva_grupo.html">Realizar reserva de grupo</a>
+        <a class="dropdown-item" href="aluno_notificacoes.html">Notificações</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding-bottom: 2%">
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4" style="background-color: gainsboro; padding-bottom: 10px; border-radius: 10px">
+        <h3 style="text-align: center">Reserva Individual</h3>
+
+        <form action="aluno_reserva_ind.html" id="myForm">
+          <div class="form-group">
+            <label for="salaPicker">Escolha a sala:</label>
+            <input type="number" min="0" step="0.001" placeholder="Insira o número da sala" class="form-control" id="salaPicker">
+          </div>
+          <div class="form-group">
+            <label for="datePicker">Escolha a data:</label>
+            <input type="date" max="3000-12-31" class="form-control" id="datePicker">
+          </div>
+          <div class="form-group">
+            <label for="timePicker_start">Escolha a hora de início (slots de 30 min):</label>
+            <input type="hour" class="form-control" id="timePicker_start" step="1800">
+          </div>
+          <div class="form-group">
+            <label for="timePicker_end">Escolha a hora de fim (slots de 30 min):</label>
+            <input type="hour" class="form-control" id="timePicker_end" step="1800">
+          </div>
+
+          <button type="submit" class="btn btn-dark btn-block">Reservar</button>
+        </form>
+
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+
+  <!--resto aqui-->
+
+  <!--scripts-->
+
+  <script>
+    $(document).ready(function () {
+      redirectLogin();
+      setTextoTop('aluno');
+      setDatePickerMinDate();
+
+      console.log(loadListaReservasInd());
+      console.log(getHorario());
+    });
+
+    var hora_reserva_start;
+    var hora_reserva_end;
+    var sala_reserva;
+    var data_reserva;
+
+    function camposPreenchidos() {
+      //devolve true se todos os campos estao preenchidos
+      sala_reserva = $('#salaPicker').val();
+      data_reserva = $('#datePicker').val();
+      hora_reserva_start = $('#timePicker_start').val();
+      hora_reserva_end = $('#timePicker_end').val();
+
+      if (sala_reserva === '' || data_reserva === '' || hora_reserva_start === '' || hora_reserva_end === '') {
+        return false;
+      }
+      else {
+        return true;
+      }
+    }
+
+    //ao carregar no botão "Reservar"
+    $('#myForm').on('submit', function (e) {
+      e.preventDefault();
+
+      //validação
+      if (!camposPreenchidos()) {
+        window.alert('Preencha todos os campos!');
+      }
+      else if (dataHoje($('#datePicker').val()) && !horaValida($('#timePicker_start').val())){
+        window.alert('Escolha um intervalo de horas válido!');
+      }
+      else if ($('#timePicker_end').val() <= $('#timePicker_start').val()) {
+        window.alert('Escolha um intervalo de horas válido!');
+      }
+      else {
+        //validaçao
+        if (intersetaHorario(hora_reserva_start, hora_reserva_end, data_reserva)) {
+          window.alert("A reserva que tentou fazer coincide com o seu horário de aulas!");
+        }
+        else {
+          //guardar a reserva
+          var reserva = newReservaInd();
+          var listaReservas = loadListaReservasInd();
+          var e_mail = localStorage.getItem('e_mail');
+          var num = getNum(e_mail);
+
+          reserva.tipo = 'Individual';
+          reserva.confirmada = true;
+          reserva.user = num;
+          reserva.sala = sala_reserva;
+          reserva.data = data_reserva;
+          reserva.hora_init = hora_reserva_start;
+          reserva.hora_end = hora_reserva_end;
+
+          //console.log(reserva);
+          listaReservas.push(reserva);
+          saveListaReservasInd(listaReservas);
+          window.alert('Reserva efetuada com sucesso!');
+          this.submit();
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

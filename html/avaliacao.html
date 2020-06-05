@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../css/style.css" type="text/css"> 
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    
+    <script src="../js/login.js"></script>
+    <title>CodeMent - Professor</title>
+  </head>
+  
+  <body class="hero set-bg" style="background-image: url('../images/uni.jpg'); background-attachment: fixed;">
+      <header class="header">
+        <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                  <div class="col-md-5">
+                    <h2>
+                      <a href="professor_notif.html" style="color: white; text-decoration: none">CodeMent</a>
+                    </h2>
+                  </div>
+                </div>
+              </div>
+                <div class="col-lg-9 col-md-9">
+                    <div class="header__nav">
+                        <nav class="header__menu mobile-menu">
+                            <ul>
+                                <li><a href="professor_notif.html">Home</a></li>
+                                <li><a href="">Código</a>
+                                  <ul class="dropdown">
+                                    <li><a href="comentario.html">Deixar comentário</a></li>
+                                    <li><a href="video_aula.html">Video aula</a></li>
+                                  </ul>
+                                </li>
+                                <li class="active"><a href="avaliacao.html">Avaliações</a></li>
+                                <li><a href="index.html">Sair</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+          </div>
+      </header> 
+
+      <section class="hero set-bg" style="margin-top: 50px;">  
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="hero__text">
+
+              <h3 style="color: white" style="text-align: center">Avaliação</h3>
+
+              <form action="avaliacao.html" id="myForm">
+                <div class="form-group">
+                  <label style="color: white" for="salaPicker">Escolher sala:</label>
+                  <input type="number" min="0" step="1" placeholder="Insira o número da sala" class="form-control" id="salaPicker">
+                </div>
+                <div class="form-group">
+                  <label style="color: white" for="datePicker">Escolher data de avaliação:</label>
+                  <input type="date" max="3000-12-31" class="form-control" id="datePicker">
+                </div>
+                <div class="form-group">
+                  <label style="color: white" for="timePicker_start">Escolher hora de inicio:</label>
+                  <input type="hour" class="form-control" id="timePicker_start" step="1800">
+                </div>
+                <div class="form-group">
+                  <label style="color: white" for="timePicker_end">Escolher hora de fim:</label>
+                  <input type="hour" class="form-control" id="timePicker_end" step="1800">
+                </div>
+
+                <button style="color: white" type="submit" class="btn btn-dark btn-block">Reservar</button>
+                <label style="color: white" for="anexo">Select a file:</label>
+                <input type="hidden" name="MAX_FILE_SIZE" value="4194304"/>
+                <input style="color: white" id="anexo" type="file" />
+              </form>
+
+      </div>
+      
+    </div>
+  </div>
+
+</div>
+</div>  
+</div>
+</section>
+
+  <!--resto aqui-->
+
+  <!--scripts-->
+
+  <script>
+    $(document).ready(function () {
+      redirectLogin();
+      setTextoTop('aluno');
+      setDatePickerMinDate();
+
+      console.log(loadListaReservasInd());
+      console.log(getHorario());
+    });
+
+    var hora_reserva_start;
+    var hora_reserva_end;
+    var sala_reserva;
+    var data_reserva;
+    var anexo;
+
+    function camposPreenchidos() {
+      //devolve true se todos os campos estao preenchidos
+      sala_reserva = $('#salaPicker').val();
+      data_reserva = $('#datePicker').val();
+      hora_reserva_start = $('#timePicker_start').val();
+      hora_reserva_end = $('#timePicker_end').val();
+      anexo = $('#anexo').val();
+      anexo = anexo.replace("C:\\fakepath\\", "");
+      //console.log(anexo);
+      
+
+      if (sala_reserva === '' || data_reserva === '' || hora_reserva_start === '' || hora_reserva_end === '') {
+        return false;
+      }
+      else {
+        return true;
+      }
+    }
+
+    //ao carregar no botão "Reservar"
+    $('#myForm').on('submit', function (e) {
+      e.preventDefault();
+
+      //validação
+      if (!camposPreenchidos()) {
+        window.alert('Preencha todos os campos!');
+      }
+      else if (dataHoje($('#datePicker').val()) && !horaValida($('#timePicker_start').val())){
+        window.alert('Escolha um intervalo de horas válido!');
+      }
+      else if ($('#timePicker_end').val() <= $('#timePicker_start').val()) {
+        window.alert('Escolha um intervalo de horas válido!');
+      }
+      else {
+        //validaçao
+        if (intersetaHorario(hora_reserva_start, hora_reserva_end, data_reserva)) {
+          window.alert("A reserva que tentou fazer coincide com o seu horário de aulas!");
+        }
+        else {
+          //guardar a reserva
+          var reserva = newReservaInd();
+          var listaReservas = loadListaReservasInd();
+          var e_mail = localStorage.getItem('e_mail');
+          var num = getNum(e_mail);
+
+          reserva.tipo = 'Avaliação';
+          reserva.confirmada = true;
+          reserva.user = num;
+          reserva.sala = sala_reserva;
+          reserva.data = data_reserva;
+          reserva.hora_init = hora_reserva_start;
+          reserva.hora_end = hora_reserva_end;
+          reserva.anexo = anexo;
+
+          //console.log(reserva);
+          listaReservas.push(reserva);
+          saveListaReservasInd(listaReservas);
+          window.alert('Reserva efetuada com sucesso!');
+          this.submit();
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
