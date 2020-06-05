@@ -13,7 +13,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="../css/style.css" type="text/css"> 
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+        type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.min.css">
     <script src="../js/login.js"></script>
     <title>CodeMent - Aluno</title>
 </head>
@@ -23,26 +26,26 @@
     <header class="header">
         <div class="container-fluid">
             <div class="row">
-              <div class="col-lg-3 col-md-3">
-                <div class="header__logo">
-                  <div class="col-md-5">
-                    <h2>
-                      <a href="aluno_notif.html" style="color: white; text-decoration: none">CodeMent</a>
-                    </h2>
-                  </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <div class="col-md-5">
+                            <h2>
+                                <a href="aluno_notif.html" style="color: white; text-decoration: none">CodeMent</a>
+                            </h2>
+                        </div>
+                    </div>
                 </div>
-              </div>
                 <div class="col-lg-9 col-md-9">
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
                                 <li><a href="aluno_notif.html">Home</a></li>
                                 <li class="active"><a href="">Código</a>
-                                  <ul class="dropdown">
-                                    <li><a href="ver_codigo.html">Ver Código</a></li>
-                                    <li><a href="comentario_aluno.html">Ler Comentário</a></li>
-                                    <li><a href="video_aula_aluno.html">Video Aula</a></li>
-                                  </ul>
+                                    <ul class="dropdown">
+                                        <li><a href="ver_codigo.html">Ver Código</a></li>
+                                        <li><a href="comentario_aluno.html">Ler Comentário</a></li>
+                                        <li><a href="video_aula_aluno.html">Video Aula</a></li>
+                                    </ul>
                                 </li>
                                 <li><a href="index.html">Sair</a></li>
                             </ul>
@@ -51,129 +54,164 @@
                 </div>
             </div>
             <div id="mobile-menu-wrap"></div>
-          </div>
-      </header> 
+        </div>
+    </header>
 
-      <section class="hero set-bg" style="margin-top: 50px;">  
+    <section class="hero set-bg" style="margin-top: 50px;">
         <div class="row">
-          <div class="col-lg-12">
-            <div class="hero__text">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <p style="color: white">Current mode: <span id="modeinfo">text/plain</span></p>
-                            <form><textarea id="code" name="code">
-This is the editor.
-// It starts out in plain text mode,
-#  use the control below to load and apply a mode
-"you'll see the highlighting of" this text /*change*/.
-</textarea></form>
-                            <p style="color: white">Filename, mime, or mode name: <input type=text value=foo.js id=mode> <button type=button
-                                    onclick="change()">change mode</button></p>
+            <div class="col-lg-12">
+                <div class="hero__text">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <p style="color: white">Current mode: <span id="modeinfo">text/plain</span></p>
+                                <form>
+                                    <textarea id="code" name="code">
+                                        This is the editor.
+                                        // It starts out in plain text mode,
+                                        #  use the control below to load and apply a mode
+                                        "you'll see the highlighting of" this text /*change*/.
+                                    </textarea>
+                                </form>
+                                <p style="color: white">
+                                    Filename, mime, or mode name:
+                                    <input type="text" value="foo.js" id="mode">
+                                    <button type=button onclick="change()">change mode</button>
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <label style="color: white" for="anexo">Selecionar código:</label>
+                                <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
+                                <input style="color: white" type="file" name="pic" accept="html" id="htmlFile" />
+                                <button type="button" onClick="window.location.reload();">Submit</button>
+                            </div>
+                            <div class="col-6">
+                                <div id="dialog" title="Enviar Código">
+                                    <form id="formSendCode" action="../SendGrid-API/send-email.php" method="post">
+
+                                        <input type="hidden" class="form-control" name="code" id="codigo">
+                                        <input type="hidden" class="form-control" name="filename" id="fileName">
+                                        <input type="hidden" class="form-control" name="type" id="fileType">
+
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="name" placeholder="name">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="email" placeholder="email">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="message"
+                                                placeholder="message">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Enviar Codigo</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <button id="sendMailDIalog" class="btn btn-primary float-right">Enviar Código</button>
+                            </div>
                         </div>
-                        <label style="color: white" for="anexo">Selecionar código:</label>
-                        <input type="hidden" name="MAX_FILE_SIZE" value="4194304"/>
-                        <input style="color: white" type="file" name="pic" accept="html" id="htmlFile"/>
-                        <button type="button" onClick="window.location.reload();">Submit</button>
                     </div>
                 </div>
             </div>
-         </div>  
         </div>
-       </section>
+    </section>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-    crossorigin="anonymous"></script>
-<script src="../codemirror-5.54.0/lib/codemirror.js"></script>
-<script src="../codemirror-5.54.0/mode/javascript/javascript.js"></script>
-<script src="../codemirror-5.54.0/addon/mode/loadmode.js"></script>
-<script src="../codemirror-5.54.0/mode/meta.js"></script>
-<script>
-    CodeMirror.modeURL = "../mode/%N/%N.js";
-    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-        lineNumbers: true
-    });
-    var modeInput = document.getElementById("mode");
-    CodeMirror.on(modeInput, "keypress", function (e) {
-        if (e.keyCode == 13) change();
-    });
-    function change() {
-        var val = modeInput.value, m, mode, spec;
-        if (m = /.+\.([^.]+)$/.exec(val)) {
-            var info = CodeMirror.findModeByExtension(m[1]);
-            if (info) {
-                mode = info.mode;
-                spec = info.mime;
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../codemirror-5.54.0/lib/codemirror.js"></script>
+    <script src="../codemirror-5.54.0/mode/javascript/javascript.js"></script>
+    <script src="../codemirror-5.54.0/addon/mode/loadmode.js"></script>
+    <script src="../codemirror-5.54.0/mode/meta.js"></script>
+    <script>
+        CodeMirror.modeURL = "../mode/%N/%N.js";
+        var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+            lineNumbers: true
+        });
+        var modeInput = document.getElementById("mode");
+        CodeMirror.on(modeInput, "keypress", function (e) {
+            if (e.keyCode == 13) change();
+        });
+        function change() {
+            var val = modeInput.value, m, mode, spec;
+            if (m = /.+\.([^.]+)$/.exec(val)) {
+                var info = CodeMirror.findModeByExtension(m[1]);
+                if (info) {
+                    mode = info.mode;
+                    spec = info.mime;
+                }
+            } else if (/\//.test(val)) {
+                var info = CodeMirror.findModeByMIME(val);
+                if (info) {
+                    mode = info.mode;
+                    spec = val;
+                }
+            } else {
+                mode = spec = val;
             }
-        } else if (/\//.test(val)) {
-            var info = CodeMirror.findModeByMIME(val);
-            if (info) {
-                mode = info.mode;
-                spec = val;
+            if (mode) {
+                editor.setOption("mode", spec);
+                CodeMirror.autoLoadMode(editor, mode);
+                document.getElementById("modeinfo").textContent = spec;
+            } else {
+                alert("Could not find a mode corresponding to " + val);
             }
-        } else {
-            mode = spec = val;
         }
-        if (mode) {
-            editor.setOption("mode", spec);
-            CodeMirror.autoLoadMode(editor, mode);
-            document.getElementById("modeinfo").textContent = spec;
-        } else {
-            alert("Could not find a mode corresponding to " + val);
-        }
-    }
-</script>
+    </script>
 
-<script>
-    function readSingleFile(evt) {
-        //Retrieve the first (and only!) File from the FileList object
-        var f = evt.target.files[0]; 
+    <script>
+        function readSingleFile(evt) {
+            //Retrieve the first (and only!) File from the FileList object
+            var f = evt.target.files[0];
 
-        if (f) {
-            var r = new FileReader();
-            r.onload = function(e) { 
-            var contents = e.target.result;
-                $("#code").val(contents); 
+            if (f) {
+                var r = new FileReader();
+                r.onload = function (e) {
+                    var contents = e.target.result;
+                    editor.setValue(contents);
+                }
+                r.readAsText(f);
+            } else {
+                alert("Failed to load file");
             }
-            r.readAsText(f);
-        } else { 
-            alert("Failed to load file");
         }
-    }
-    document.getElementById('htmlFile').addEventListener('change', readSingleFile, false);
-</script>
+        document.getElementById('htmlFile').addEventListener('change', readSingleFile, false);
+    </script>
 
-<form method="post">
-    <input type="button" value="Send Email" onclick="sendEmail()"/>
-</form>  
-<script src="https://smtpjs.com/v3/smtp.js"></script>  
-	<script type="text/javascript">
-		function sendEmail() {
-			Email.send({
-				Host: "smtp.gmail.com",
-				Username : "<sender’s email address>",
-				Password : "<email password>",
-				To : '<recipient’s email address>',
-				From : "<sender’s email address>",
-				Subject : "<email subject>",
-				Body : "<email body>",
-			})
-			.then(function(message){
-				alert("mail sent successfully")
-			});
-		}
-	</script>
+    <script>
+        $(function () {
 
+            $("#dialog").dialog({
+                autoOpen: false,
+                modal: true,
+                show: "blind",
+                hide: "blind"
+            });
+
+            $("#sendMailDIalog").on("click", function () {
+                $("#dialog").dialog("open");
+                return false;
+            });
+        });
+
+        $("#formSendCode").on("submit", function () {
+            $("#codigo").text($("#code").text());
+            $("#fileName").text($("#mode").text());
+            $("#fileType").text($("#modeinfo").text());
+        });
+    </script>
 
 </body>
 
