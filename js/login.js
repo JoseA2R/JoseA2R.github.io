@@ -281,70 +281,6 @@ function getNotifications(num) {
   return lista_final;
 }
 
-//apos todas as confirmações, é eliminada a reserva de grupo
-//e criadas reservas individuais para cada aluno
-function finalizaReservaGrupo(id, tipo) {
-  var listaReservasGrupo = loadListaReservasGrupo();
-  var user, sala, hora_init, hora_end, data, grupo = [];
-
-  //console.log(listaReservasGrupo);
-
-  for (var i = 0; i < listaReservasGrupo.length; i++) {
-    if (listaReservasGrupo[i].id == id) {
-      user = listaReservasGrupo[i].user;
-      sala = listaReservasGrupo[i].sala;
-      data = listaReservasGrupo[i].data;
-      hora_init = listaReservasGrupo[i].hora_init;
-      hora_end = listaReservasGrupo[i].hora_end;
-
-      grupo.push(user);
-      for (var j = 0; j < listaReservasGrupo[i].lista_confirmacoes.length; j++) {
-        grupo.push(listaReservasGrupo[i].lista_confirmacoes[j].num);
-      }
-
-      //console.log('grupo:');
-      //console.log(grupo);
-
-      var reserva = newReservaInd();
-      reserva.tipo = tipo;
-      reserva.sala = sala;
-      reserva.data = data;
-      reserva.hora_init = hora_init;
-      reserva.hora_end = hora_end;
-      reserva.confirmada = true;
-
-      //console.log(reserva);
-
-      for (var k = 0; k < grupo.length; k++) {
-        reserva.user = grupo[k];
-
-        //console.log('user:');
-        //console.log(reserva.user);
-        //console.log('reserva:');
-        //console.log(reserva);
-        listaReservasInd = loadListaReservasInd();
-        //console.log(listaReservasInd);
-        listaReservasInd.push(reserva);
-        saveListaReservasInd(listaReservasInd);
-      }
-
-      //console.log('antes do splice:' + i);
-      //console.log(listaReservasGrupo);
-      listaReservasGrupo.splice(i, 1);
-      //console.log('depois do splice:');
-      //console.log(listaReservasGrupo);
-      //console.log('---------------------------');
-
-      saveListaReservasGrupo(listaReservasGrupo);
-      //console.log('reservas individuais:');
-      //console.log(loadListaReservasInd());
-      console.log('reservas de grupo:');
-      console.log(loadListaReservasGrupo());
-
-      break;
-    }
-  }
-}
 
 //verifica se o utilizador fez login
 function isLoggedOn() {
@@ -583,3 +519,57 @@ function createDownloadLink(blob) {
 
 
 //
+var SpeechRecognition = window.webkitSpeechRecognition;
+      
+var recognition = new SpeechRecognition();
+ 
+var Textbox = $('#textbox');
+var instructions = $('instructions');
+ 
+var Content = '';
+ 
+recognition.continuous = true;
+ 
+recognition.onresult = function(event) {
+ 
+  var current = event.resultIndex;
+ 
+  var transcript = event.results[current][0].transcript;
+ 
+    Content += transcript;
+    Textbox.val(Content);
+  
+};
+ 
+recognition.onstart = function() { 
+  instructions.text('Voice recognition is ON.');
+}
+ 
+recognition.onspeechend = function() {
+  instructions.text('No activity.');
+}
+ 
+recognition.onerror = function(event) {
+  if(event.error == 'no-speech') {
+    instructions.text('Try again.');  
+  }
+}
+
+ 
+$('#start-btn').on('click', function(e) {
+  if (Content.length) {
+    Content += ' ';
+  }
+  recognition.start();
+});
+
+$('#stop-btn').on('click', function(e) {
+  if (Content.length) {
+    Content += ' ';
+  }
+  recognition.stop();
+});
+ 
+Textbox.on('input', function() {
+  Content = $(this).val();
+})

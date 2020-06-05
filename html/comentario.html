@@ -82,13 +82,20 @@ This is the editor.
                        <ol style="color: white" id="recordingsList"></ol>
                      <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
                        <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
-                       <script src="../js/login.js"></script>
                 </div>
                 <label style="color: white" for="anexo">Select a file:</label>
                 <input type="hidden" name="MAX_FILE_SIZE" value="4194304"/>
                 <input style="color: white" type="file" name="pic" accept="html" id="htmlFile"/>
-                <button type="button" onClick="window.location.reload();">Submit</button>
+                <button type="button" id="test">Submit</button>
             </div>
+            <div class="input">
+                <textarea id="textbox" rows="6"></textarea>
+            </div>         
+            <button id="start-btn" title="Start">Start</button>
+            <button id="stop-btn" title="Stop">Stop</button>
+            <p id="instructions">Press the Start button</p>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="../js/login.js"></script>
          </div>  
         </div>
        </section>
@@ -147,21 +154,29 @@ This is the editor.
 
 <script>
     function readSingleFile(evt) {
-        //Retrieve the first (and only!) File from the FileList object
+
         var f = evt.target.files[0]; 
 
         if (f) {
             var r = new FileReader();
             r.onload = function(e) { 
             var contents = e.target.result;
-                $("#code").val(contents); 
+                $("#code").val(contents);
+                console.log(f); 
             }
             r.readAsText(f);
         } else { 
             alert("Failed to load file");
         }
+        console.log($("#htmlFile"));
     }
     document.getElementById('htmlFile').addEventListener('change', readSingleFile, false);
+
+    $("#test").on('click', function(){
+        $("#code").val('');
+        $("#code").val('d');
+    });
+    
 </script>
 
 </body>
