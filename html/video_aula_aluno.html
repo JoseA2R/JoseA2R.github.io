@@ -41,7 +41,7 @@
                                     <ul class="dropdown">
                                         <li><a href="ver_codigo.html">Ver Código</a></li>
                                         <li><a href="comentario_aluno.html">Ler Comentário</a></li>
-                                        <li><a href="video_aula_aluno.html">Video Aula</a></li>
+
                                     </ul>
                                 </li>
                                 <li><a href="../index.html">Sair</a></li>
@@ -60,11 +60,17 @@
                 <div class="hero__text">
                     <div class="container">
                         <div class="row">
-                            <label style="color: white" for="anexo">Selecionar video aula:</label>
-                            <input style="color: white" type="file" name="file" onchange="selectedVideo(this);" />
-                            <video id="video" controls>
-                                <source id="source" type="video/mp4">
-                            </video>
+                            <div class="col-12">
+                                <label style="color: white; font-size: 22px; font-weight: 600; display: block;"
+                                    for="anexo">Selecionar video aula:</label>
+                                <input style="color: white; display: block;" type="file" name="file"
+                                    onchange="selectedVideo(this);" />
+                            </div>
+                            <div class="col-12 text-center">
+                                <video id="video" style="margin-top: 30px; max-height: 600px;" controls>
+                                    <source id="source" type="video/mp4">
+                                </video>
+                            </div>
                         </div>
                     </div>
                 </div>

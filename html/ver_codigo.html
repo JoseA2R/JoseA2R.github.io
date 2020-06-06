@@ -44,7 +44,7 @@
                                     <ul class="dropdown">
                                         <li><a href="ver_codigo.html">Ver Código</a></li>
                                         <li><a href="comentario_aluno.html">Ler Comentário</a></li>
-                                        <li><a href="video_aula_aluno.html">Video Aula</a></li>
+
                                     </ul>
                                 </li>
                                 <li><a href="../index.html">Sair</a></li>
@@ -57,35 +57,35 @@
         </div>
     </header>
 
-    <section class="hero set-bg" style="margin-top: 50px;">
+    <section class="hero set-bg">
         <div class="row">
             <div class="col-lg-12">
                 <div class="hero__text">
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
+                                <h2 style="color: white; margin-top: 10px; margin-bottom: 30px;">Ver Código</h2>
                                 <p style="color: white">Current mode: <span id="modeinfo">text/plain</span></p>
                                 <form>
                                     <textarea id="code" name="code">
-                                        This is the editor.
-                                        // It starts out in plain text mode,
-                                        #  use the control below to load and apply a mode
-                                        "you'll see the highlighting of" this text /*change*/.
+This is the editor.
+// It starts out in plain text mode,
+#  use the control below to load and apply a mode
+"you'll see the highlighting of" this text /*change*/.
                                     </textarea>
                                 </form>
-                                <p style="color: white">
-                                    Filename, mime, or mode name:
-                                    <input type="text" value="foo.js" id="mode">
-                                    <button type=button onclick="change()">change mode</button>
-                                </p>
+                                <label for="mode" style="color: white">Filename, mime, or mode name: </label>
+                                <input type=text value=foo.js id=mode> <button class="btn btn-dark" type=button
+                                    onclick="change()">change mode</button>
                             </div>
-                            <div class="col-6">
-                                <label style="color: white" for="anexo">Selecionar código:</label>
+                            <div class="col-12" style="margin-top: 30px;">
+                                <label style="color: white; font-size: 22px; font-weight: 600; display: block;"
+                                    for="anexo">Selecionar código:</label>
                                 <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
                                 <input style="color: white" type="file" name="pic" accept="html" id="htmlFile" />
                                 <button type="button" onClick="window.location.reload();">Submit</button>
                             </div>
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div id="dialog" title="Enviar Código">
                                     <form id="formSendCode" action="../SendGrid-API/send-email.php" method="post">
 

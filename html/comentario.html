@@ -64,6 +64,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
+                                <h2 style="color: white; margin-bottom: 30px;">Deixar Comentário</h2>
                                 <p style="color: white">Current mode: <span id="modeinfo">text/plain</span></p>
                                 <form><textarea id="code" name="code">
 This is the editor.
@@ -71,35 +72,52 @@ This is the editor.
 #  use the control below to load and apply a mode
 "you'll see the highlighting of" this text /*change*/.
 </textarea></form>
-                                <p style="color: white">Filename, mime, or mode name: <input type=text value=foo.js
-                                        id=mode> <button type=button onclick="change()">change mode</button></p>
+                                <label for="mode" style="color: white">Nome do ficheiro: </label>
+                                <input type=text value=foo.js id=mode> <button class="btn btn-dark" type=button
+                                    onclick="change()">change mode</button>
                             </div>
                         </div>
-                        <div id="controls">
-                            <button id="recordButton">Record</button>
-                            <button id="pauseButton" disabled>Pause</button>
-                            <button id="stopButton" disabled>Stop</button>
-                        </div>
-                        <div style="color: white" id="formats">Format: start recording to see sample rate</div>
-                        <p style="color: white"><strong>Recordings:</strong></p>
-                        <ol style="color: white" id="recordingsList"></ol>
-                        <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
-                        <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
                     </div>
-                    <label style="color: white" for="anexo">Select a file:</label>
-                    <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
-                    <input style="color: white" type="file" name="pic" accept="html" id="htmlFile" />
+                    <div class="col-12" style="margin-top: 30px;">
+                        <label for="controls" style="color: white; font-size: 22px; font-weight: 600;">Gravar nota de
+                            voz:</label>
+                        <div id="controls">
+                            <button id="recordButton" class="btn btn-info">Gravar</button>
+                            <button id="pauseButton" class="btn btn-info" disabled>Pausa</button>
+                            <button id="stopButton" class="btn btn-info" disabled>Stop</button>
+                        </div>
+                        <div style="color: white" id="formats">Formato:</div>
+                        <p style="color: white"><strong>Recordings:</strong></p>
+                        <ul style="color: white; list-style-type: none;" id="recordingsList"></ul>
+                    </div>
+                    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+                    <script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+                    <div class="col-12" style="margin-top: 30px;">
+                        <label for="anexo"
+                            style="color: white; font-size: 22px; font-weight: 600; display: block;">Anexe um
+                            ficheiro:</label>
+                        <label style="color: white" for="anexo">Select a file:</label>
+                        <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
+                        <input style="color: white" type="file" name="pic" accept="html" id="htmlFile" />
+                    </div>
                 </div>
-                <div class="input">
-                    <textarea id="textbox" rows="6"></textarea>
+                <div class="col-12" style="margin-top: 30px;">
+                    <label for="anexo" style="color: white; font-size: 22px; font-weight: 600; display: block;">Speech
+                        to Text</label>
+                    <div class="input">
+                        <textarea id="textbox" style="width: 100%;"></textarea>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <button id="start-btn" class="btn btn-info" title="Start">Iniciar</button>
+                        <button id="stop-btn" class="btn btn-info" title="Stop">Stop</button>
+                        <p id="instructions" style="color: white;">Clique iniciar para começar a
+                            conversão</p>
+                    </div>
                 </div>
-                <button id="start-btn" title="Start">Start</button>
-                <button id="stop-btn" title="Stop">Stop</button>
-                <p id="instructions">Press the Start button</p>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
                 <script src="../js/login.js"></script>
             </div>
-            <div class="col-6">
+            <div class="col-12">
                 <div id="dialog" title="Enviar Código">
                     <form id="formSendCode" action="../SendGrid-API/send-email.php" method="post">
 

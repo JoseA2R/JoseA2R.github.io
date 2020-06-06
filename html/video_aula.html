@@ -65,55 +65,77 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
+                                <h2 style="color: white; margin-bottom: 30px;">Video Aula</h2>
                                 <p style="color: white">Current mode: <span id="modeinfo">text/plain</span></p>
                                 <form><textarea id="code" name="code">
 This is the editor.
 // It starts out in plain text mode,
 #  use the control below to load and apply a mode
 "you'll see the highlighting of" this text /*change*/.
-</textarea></form>
-                                <p style="color: white">Filename, mime, or mode name: <input type=text value=foo.js
-                                        id=mode> <button type=button onclick="change()">change mode</button></p>
+                                    </textarea>
+                                </form>
+                                <label for="mode" style="color: white">Filename, mime, or mode name: </label>
+                                <input type=text value=foo.js id=mode> <button class="btn btn-dark" type=button
+                                    onclick="change()">change mode</button>
                             </div>
-                            <button onclick="startRecording2()">Start</button>
-                            <button onclick="stopRecording2()">Stop</button>
-                            <label style="color: white" for="anexo">Select a file:</label>
-                            <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
-                            <input style="color: white" type="file" name="pic" accept="html" id="htmlFile" />
-                            <button type="button" onClick="window.location.reload();">Submit</button>
+                            <div class="col-12" style="margin-top: 30px;">
+                                <label style="color: white; font-size: 22px; font-weight: 600; display: block;"
+                                    for="record">Gravar uma
+                                    Video Aula: </label>
+                                <button class="btn btn-info" id="record" onclick="startRecording2()">Start</button>
+                                <button class="btn btn-info" onclick="stopRecording2()">Stop</button>
+                            </div>
+                            <div class="col-12" style="margin-top: 30px;">
+                                <label style="color: white; font-size: 22px; font-weight: 600; display: block;">Escolha
+                                    um ficheiro para upload:</label>
+                                <label style="color: white" for="anexo">Escolha um ficheiro:</label>
+                                <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
+                                <input style="color: white" type="file" name="pic" accept="html" id="htmlFile" />
+                            </div>
+                            <div class="col-12">
+                                <div id="dialog" title="Enviar Código">
+                                    <form id="formSendCode" action="../SendGrid-API/send-email.php" method="post">
+
+                                        <input type="hidden" class="form-control" name="code" id="codigo">
+                                        <input type="hidden" class="form-control" name="type" id="fileType">
+                                        <input type="hidden" class="form-control" name="fileName" id="fileName">
+
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="name" placeholder="Nome">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="subject"
+                                                placeholder="Assunto">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="email" placeholder="E-Mail">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="message"
+                                                placeholder="Descrição">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="nameVideo"
+                                                placeholder="Nome da video aula">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Escolha a video Aula a enviar:</label>
+                                            <input type="hidden" name="fileContent" id="fileContent" />
+                                            <input type="hidden" name="MAX_FILE_SIZE" value="134217728" />
+                                            <input type="file" name="video" accept="video/*" id="htmlFile" />
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">Enviar Codigo</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <button id="sendMailDialog" class="btn btn-primary float-right">Enviar Código</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-10">
-            <div id="dialog" title="Enviar Código">
-                <form id="formSendCode" action="../SendGrid-API/send-email.php" method="post">
-
-                    <input type="hidden" class="form-control" name="code" id="codigo">
-                    <input type="hidden" class="form-control" name="type" id="fileType">
-                    <input type="hidden" class="form-control" name="fileName" id="fileName">
-
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="name" placeholder="Nome">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="subject" placeholder="Assunto">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="email" placeholder="E-Mail">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control" name="message" placeholder="Descrição">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Enviar Codigo</button>
-                    </div>
-                </form>
-            </div>
-            <button id="sendMailDialog" class="btn btn-primary float-right">Enviar Código</button>
-        </div>
-
     </section>
 
 </body>
@@ -243,6 +265,7 @@ This is the editor.
         $("#dialog").dialog({
             autoOpen: false,
             modal: true,
+            width: Math.min(400, $(window).width() * .3),
             show: "blind",
             hide: "blind"
         });
@@ -257,6 +280,10 @@ This is the editor.
         $("#codigo").val($("#code").val());
         $("#fileName").val($("#mode").val());
         $("#fileType").val($("#modeinfo").val());
+        $("#fileContent").val($('#fileinput').prop('files')[0]);
+    });
+    $("htmlFile").on("change", function () {
+        console.log($('#htmlFile').prop('files'));
     });
 </script>
 
