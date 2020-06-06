@@ -47,7 +47,7 @@
                                         <li><a href="video_aula_aluno.html">Video Aula</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="index.html">Sair</a></li>
+                                <li><a href="../index.html">Sair</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -90,8 +90,8 @@
                                     <form id="formSendCode" action="../SendGrid-API/send-email.php" method="post">
 
                                         <input type="hidden" class="form-control" name="code" id="codigo">
-                                        <input type="hidden" class="form-control" name="filename" id="fileName">
                                         <input type="hidden" class="form-control" name="type" id="fileType">
+                                        <input type="hidden" class="form-control" name="fileName" id="fileName">
 
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="name" placeholder="name">
@@ -108,7 +108,7 @@
                                         </div>
                                     </form>
                                 </div>
-                                <button id="sendMailDIalog" class="btn btn-primary float-right">Enviar Código</button>
+                                <button id="sendMailDialog" class="btn btn-primary float-right">Enviar Código</button>
                             </div>
                         </div>
                     </div>
@@ -200,16 +200,16 @@
                 hide: "blind"
             });
 
-            $("#sendMailDIalog").on("click", function () {
+            $("#sendMailDialog").on("click", function () {
                 $("#dialog").dialog("open");
                 return false;
             });
         });
-
+        console.log($("#code").val());
         $("#formSendCode").on("submit", function () {
-            $("#codigo").text($("#code").text());
-            $("#fileName").text($("#mode").text());
-            $("#fileType").text($("#modeinfo").text());
+            $("#codigo").val($("#code").val());
+            $("#fileName").val($("#mode").val());
+            $("#fileType").val($("#modeinfo").val());
         });
     </script>
 

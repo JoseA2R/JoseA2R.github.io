@@ -7,15 +7,15 @@ $type =           $_POST['type'];
 $name =           $_POST['name'];
 $email =          $_POST['email'];
 $message =        $_POST['message'];
-$filename =       $_POST['filename'];
+$filename =       $_POST['fileName'];
 $attachment =     $_POST['code'];
-//die(var_dump($attachment));
+die(var_dump($type));
 /*Content*/
-$from = new SendGrid\Email("Code", "2107418@student.uma.pt");
+$from = new SendGrid\Email("Code", "joseagustindrf@gmail.com");
 $subject = "Testing Mail";
 $to = new SendGrid\Email("Jose", $email);
 $content1 = new SendGrid\Content("text/html", $message);
-
+die(var_dump($attachment));
 $content = new \SendGrid\Attachment();
 $content->setContent(base64_encode($attachment));
 $content->setType($type);
@@ -25,7 +25,7 @@ $content->setDisposition("attachment");
 /*Send the mail*/
 $mail = new SendGrid\Mail($from, $subject, $to, $content1);
 $mail->addAttachment( $content );
-$apiKey = ('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');
+$apiKey = ('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');
 $sg = new \SendGrid($apiKey);
 
 /*Response*/
