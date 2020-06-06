@@ -6,61 +6,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="../css/style.css" type="text/css"> 
+  <link rel="stylesheet" href="../css/style.css" type="text/css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  
+
   <script src="../js/login.js"></script>
   <title>CodeMent - Aluno</title>
 </head>
 
 <body class="hero set-bg" style="background-image: url('../images/uni.jpg'); background-attachment: fixed;">
-    <header class="header">
-      <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-3 col-md-3">
-              <div class="header__logo">
-                <div class="col-md-5">
-                  <h2>
-                    <a href="aluno_notif.html" style="color: white; text-decoration: none">CodeMent</a>
-                  </h2>
-                </div>
-              </div>
-            </div>
-              <div class="col-lg-9 col-md-9">
-                  <div class="header__nav">
-                      <nav class="header__menu mobile-menu">
-                          <ul>
-                              <li class="active"><a href="aluno_notif.html">Home</a></li>
-                              <li><a href="">Código</a>
-                                <ul class="dropdown">
-                                  <li><a href="ver_codigo.html">Ver Código</a></li>
-                                  <li><a href="comentario_aluno.html">Ler Comentário</a></li>
-                                  <li><a href="video_aula_aluno.html">Video Aula</a></li>
-                                </ul>
-                              </li>
-                              <li><a href="index.html">Sair</a></li>
-                          </ul>
-                      </nav>
-                  </div>
-              </div>
-          </div>
-          <div id="mobile-menu-wrap"></div>
-        </div>
-    </header> 
-
-    <section class="hero set-bg" style="margin-top: 50px;">  
+  <header class="header">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-12">
-          <div class="hero__text">
-            <div class="section-title" id="reservas_efetuadas">
-                <h2>Notificações</h2>
+        <div class="col-lg-3 col-md-3">
+          <div class="header__logo">
+            <div class="col-md-5">
+              <h2>
+                <a href="aluno_notif.html" style="color: white; text-decoration: none">CodeMent</a>
+              </h2>
             </div>
           </div>
-        </div>  
+        </div>
+        <div class="col-lg-9 col-md-9">
+          <div class="header__nav">
+            <nav class="header__menu mobile-menu">
+              <ul>
+                <li class="active"><a href="aluno_notif.html">Home</a></li>
+                <li><a href="">Código</a>
+                  <ul class="dropdown">
+                    <li><a href="ver_codigo.html">Ver Código</a></li>
+                    <li><a href="comentario_aluno.html">Ler Comentário</a></li>
+                    <li><a href="video_aula_aluno.html">Video Aula</a></li>
+                  </ul>
+                </li>
+                <li><a href="../index.html">Sair</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
       </div>
-    </section>
+      <div id="mobile-menu-wrap"></div>
+    </div>
+  </header>
+
+  <section class="hero set-bg" style="margin-top: 50px;">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="hero__text">
+          <div class="section-title" id="reservas_efetuadas">
+            <h2>Notificações</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <!--scripts-->
@@ -76,7 +76,7 @@
 
     function criarTabela() {
       var num = getNum(localStorage.getItem('e_mail'));
-      
+
       if (!temReservasEfetuadas(num)) {
         var text = document.createTextNode('Não existem reservas efetuadas.');
         document.getElementById('reservas_efetuadas').appendChild(text);
@@ -126,7 +126,7 @@
         th.appendChild(tr);
         table.appendChild(th);
 
-        
+
 
         for (var i = 0; i < listaReservasEfetuadas.length; i++) {
           var tr = document.createElement('tr');
@@ -169,8 +169,8 @@
           tr.appendChild(td6);
 
           table.appendChild(tr);
-          
-        
+
+
         }
         document.getElementById('reservas_efetuadas').appendChild(table);
       }
