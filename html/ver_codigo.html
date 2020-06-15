@@ -67,12 +67,7 @@
                                 <h2 style="color: white; margin-top: 10px; margin-bottom: 30px;">Ver Código</h2>
                                 <p style="color: white">Current mode: <span id="modeinfo">text/plain</span></p>
                                 <form>
-                                    <textarea id="code" name="code">
-This is the editor.
-// It starts out in plain text mode,
-#  use the control below to load and apply a mode
-"you'll see the highlighting of" this text /*change*/.
-                                    </textarea>
+                                    <textarea id="code" name="code"></textarea>
                                 </form>
                                 <label for="mode" style="color: white">Filename, mime, or mode name: </label>
                                 <input type=text value=foo.js id=mode> <button class="btn btn-dark" type=button
@@ -83,7 +78,6 @@ This is the editor.
                                     for="anexo">Selecionar código:</label>
                                 <input type="hidden" name="MAX_FILE_SIZE" value="4194304" />
                                 <input style="color: white" type="file" name="pic" accept="html" id="htmlFile" />
-                                <button type="button" onClick="window.location.reload();">Submit</button>
                             </div>
                             <div class="col-12">
                                 <div id="dialog" title="Enviar Código">
@@ -211,7 +205,7 @@ This is the editor.
         });
 
         $("#formSendCode").on("submit", function () {
-            $("#codigo").val($("#code").val());
+            $("#codigo").val(editor.getValue());
             $("#fileName").val($("#mode").val());
             $("#fileType").val($("#modeinfo").val());
         });

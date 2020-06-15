@@ -66,12 +66,7 @@
                             <div class="col-12">
                                 <h2 style="color: white; margin-bottom: 30px;">Deixar Comentário</h2>
                                 <p style="color: white">Current mode: <span id="modeinfo">text/plain</span></p>
-                                <form><textarea id="code" name="code">
-This is the editor.
-// It starts out in plain text mode,
-#  use the control below to load and apply a mode
-"you'll see the highlighting of" this text /*change*/.
-</textarea></form>
+                                <form><textarea id="code" name="code"></textarea></form>
                                 <label for="mode" style="color: white">Nome do ficheiro: </label>
                                 <input type=text value=foo.js id=mode> <button class="btn btn-dark" type=button
                                     onclick="change()">change mode</button>
@@ -210,6 +205,7 @@ This is the editor.
             var r = new FileReader();
             r.onload = function (e) {
                 var contents = e.target.result;
+                console.log(contents);
                 editor.setValue(contents);
             }
             r.readAsText(f);
@@ -238,7 +234,7 @@ This is the editor.
     });
 
     $("#formSendCode").on("submit", function () {
-        $("#codigo").val($("#code").val());
+        $("#codigo").val(editor.getValue());
         $("#fileName").val($("#mode").val());
         $("#fileType").val($("#modeinfo").val());
     });
